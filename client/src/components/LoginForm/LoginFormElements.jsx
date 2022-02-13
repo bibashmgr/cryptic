@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const FormContainer = styled.section`
     width: 100%;
@@ -76,7 +77,7 @@ export const LinkText = styled.div`
     color: #2e2e39;
 `
 
-export const RegisterLink = styled.a`
+export const RegisterLink = styled(Link)`
     margin-left: 5px;
     font-size: 0.75rem;
     font-weight: 700;

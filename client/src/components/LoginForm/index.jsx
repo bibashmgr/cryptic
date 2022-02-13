@@ -1,12 +1,29 @@
 import React from 'react';
+import { useState } from 'react';
 
 // elements:
 import { FormContainer, FormHeading, InputsContainer, InputContainer, InputLabel, InputField, LoginButton, LinkContainer, LinkText, RegisterLink, FormBox, SiteLogo } from './LoginFormElements';
 
 const LoginForm = () => {
 
-    const handleChange = () => {
+    // state
+    const [loginInfo, setLoginInfo] = useState({
+        username: '',
+        password: ''
+    })
 
+    const handleChange = (e) => {
+        if(e.target.name === 'username'){
+            setLoginInfo({...loginInfo, username: e.target.value});
+        }
+        if(e.target.name === 'password'){
+            setLoginInfo({...loginInfo, password: e.target.value});
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(loginInfo);
     }
     
     return (
@@ -14,20 +31,20 @@ const LoginForm = () => {
             <FormBox>
                 <SiteLogo>cryptic</SiteLogo>
                 <FormHeading>Welcome</FormHeading>
-                <InputsContainer>
+                <InputsContainer onSubmit={handleSubmit}>
                     <InputContainer>
                         <InputLabel htmlFor='username'>Username:</InputLabel>
-                        <InputField type='text' name='username' placeholder='Enter your username' id='username' onChange={handleChange} value='' />
+                        <InputField type='text' name='username' placeholder='Enter your username' id='username' onChange={handleChange} value={loginInfo.username} />
                     </InputContainer>
                     <InputContainer>
                         <InputLabel htmlFor='password'>Password:</InputLabel>
-                        <InputField type='password' name='password' placeholder='Enter your password' id='password' onChange={handleChange} value='' />
+                        <InputField type='password' name='password' placeholder='Enter your password' id='password' onChange={handleChange} value={loginInfo.password} />
                     </InputContainer>
                     <LoginButton type='submit'>Sign in</LoginButton>
                 </InputsContainer>
                 <LinkContainer>
                       <LinkText>Don't have an account yet?</LinkText>
-                      <RegisterLink>Register now</RegisterLink>
+                      <RegisterLink to='/register'>Register now</RegisterLink>
                 </LinkContainer>
             </FormBox>
         </FormContainer>

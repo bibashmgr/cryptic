@@ -10,10 +10,10 @@ import LoginHero from '../components/LoginHero';
 const Login = () => {
   return (
     <div className='container'>
-        <LoginForm className='form-section' />
-        <LoginHero className='hero-section' />
+      <LoginForm />
+      <LoginHero />
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
