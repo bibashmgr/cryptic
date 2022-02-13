@@ -51,7 +51,7 @@ const RegisterForm = () => {
           <InputContainer>
             <InputLabel htmlFor='username'>Email:</InputLabel>
             <InputField
-              type='text'
+              type='email'
               name='email'
               placeholder='Enter your email'
               id='email'
