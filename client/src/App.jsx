@@ -1,10 +1,13 @@
 // scss
 import './App.scss';
 
+// pages
+import Login from './pages/Login';
+
 function App() {
   return (
     <>
-      <h1>Hello</h1>
+      <Login />
     </>
   );
 }
