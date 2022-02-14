@@ -9,7 +9,7 @@ import LoginHero from '../components/LoginHero';
 
 const Login = () => {
   return (
-    <div className='container'>
+    <div className='login-container'>
       <LoginForm />
       <LoginHero />
     </div>

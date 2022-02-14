@@ -1,4 +1,4 @@
-.container {
+.register-container {
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 992px) {
-    .container {
+    .register-container {
         grid-template-columns: 1fr;
     }
 }

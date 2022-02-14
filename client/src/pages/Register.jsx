@@ -9,7 +9,7 @@ import RegisterHero from '../components/RegisterHero';
 
 const Register = () => {
   return (
-    <div className='container'>
+    <div className='register-container'>
       <RegisterHero />
       <RegisterForm />
     </div>
