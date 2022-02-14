@@ -20,7 +20,11 @@ const PostField = () => {
         <CardUserName>@keepitlow</CardUserName>
       </CardHeader>
       <CardContent>
-        <CardTextField type='text' placeholder='Type your confession' />
+        <CardTextField
+          id='confession'
+          name='confession'
+          placeholder='Type your confession'
+        ></CardTextField>
       </CardContent>
       <CardButton>
         <ShareButton>Share</ShareButton>

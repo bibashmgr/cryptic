@@ -10,7 +10,7 @@ export const CardHeader = styled.div`
 `;
 
 export const CardAvatar = styled.img`
-  width: 50px;
+  width: 35px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 `;
@@ -31,12 +31,13 @@ export const CardContent = styled.div`
   justify-content: center;
 `;
 
-export const CardTextField = styled.input`
+export const CardTextField = styled.textarea`
   border: none;
   outline: none;
   margin: 20px;
   width: 100%;
   height: 100%;
+  resize: none;
 `;
 
 export const CardButton = styled.div`
@@ -50,7 +51,7 @@ export const ShareButton = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   background-color: #78bcff;
   border-radius: 5px;
-  width: 25%;
+  width: 175px;
   height: 100%;
   font-size: 1rem;
   font-weight: 700;
