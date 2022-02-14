@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { MdLogout } from 'react-icons/md';
 
 export const TopBarContainer = styled.header`
+  z-index: 100;
   position: fixed;
   top: 0;
   background-color: #78bcff;
@@ -13,7 +14,7 @@ export const TopBarContainer = styled.header`
   justify-content: center;
   align-items: center;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 992px) {
     width: 100%;
   }
 `;
@@ -24,6 +25,9 @@ export const TopBarBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media screen and (max-width: 576px) {
+    margin: 0px 25px;
+  }
 `;
 
 export const TopBarLogo = styled.div`

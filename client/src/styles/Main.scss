@@ -1,0 +1,22 @@
+.main-container {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.sub-container {
+    width: 75%;
+    height: 100%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    display: flex;
+    justify-content: center;
+    padding-top: 20vh;
+    padding-bottom: 15vh;
+}
+
+@media screen and (max-width: 992px) {
+    .sub-container {
+        width: 100%;
+    }
+}
