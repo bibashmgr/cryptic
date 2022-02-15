@@ -6,7 +6,10 @@ import {
   CardAvatar,
   CardButtons,
   CardContent,
+  CardDate,
   CardHeader,
+  CardHeaderText,
+  LikeCount,
   CardText,
   CardUserName,
   LikeButton,
@@ -20,7 +23,10 @@ const Post = () => {
     <Card>
       <CardHeader>
         <CardAvatar src='/images/avatar.jpg' />
-        <CardUserName>@keepitlow</CardUserName>
+        <CardHeaderText>
+          <CardUserName>@keepitlow</CardUserName>
+          <CardDate>20 Jan 2020, 8:30 AM</CardDate>
+        </CardHeaderText>
       </CardHeader>
       <CardContent>
         <CardText>
@@ -31,6 +37,7 @@ const Post = () => {
       </CardContent>
       <CardButtons>
         <LikeButton>
+          <LikeCount>10</LikeCount>
           <LikeLogo />
         </LikeButton>
         <SaveButton>

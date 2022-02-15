@@ -7,7 +7,7 @@ export const Card = styled.section`
 `;
 
 export const CardAvatar = styled.img`
-  width: 105px;
+  width: 120px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 `;

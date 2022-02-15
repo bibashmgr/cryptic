@@ -12,16 +12,30 @@ export const CardHeader = styled.div`
 `;
 
 export const CardAvatar = styled.img`
-  width: 35px;
+  width: 40px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+`;
+
+export const CardHeaderText = styled.div`
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const CardUserName = styled.div`
   font-size: 0.9rem;
   font-weight: 700;
+  color: #2e2e39;
   opacity: 0.7;
-  margin-left: 15px;
+`;
+
+export const CardDate = styled.div`
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #2e2e39;
+  opacity: 0.5;
 `;
 
 export const CardContent = styled.div`
@@ -30,12 +44,14 @@ export const CardContent = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100px;
 `;
 
 export const CardText = styled.div`
   margin: 25px;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #2e2e39;
 `;
 
 export const CardButtons = styled.div`
@@ -47,10 +63,19 @@ export const CardButtons = styled.div`
 
 export const LikeButton = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+export const LikeCount = styled.div`
+  margin-right: 5px;
+  opacity: 0.75;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #78bcff;
 `;
 
 export const LikeLogo = styled(BiLike)`

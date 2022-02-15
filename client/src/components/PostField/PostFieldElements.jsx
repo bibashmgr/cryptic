@@ -22,7 +22,7 @@ export const CardUserName = styled.div`
   margin-left: 15px;
 `;
 
-export const CardContent = styled.div`
+export const CardContent = styled.form`
   margin-top: 25px;
   margin-bottom: 10px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -47,7 +47,9 @@ export const CardButton = styled.div`
   justify-content: flex-end;
 `;
 
-export const ShareButton = styled.div`
+export const ShareButton = styled.button`
+  border: none;
+  outline: none;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   background-color: #78bcff;
   border-radius: 5px;

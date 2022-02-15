@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 
 // elements
 import {
@@ -13,6 +14,13 @@ import {
 } from './PostFieldElements';
 
 const PostField = () => {
+  // state
+  const [post, setPost] = useState('');
+
+  const handleChange = (e) => {
+    setPost(e.target.value);
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -24,10 +32,14 @@ const PostField = () => {
           id='confession'
           name='confession'
           placeholder='Type your confession'
-        ></CardTextField>
+          rows='10'
+          onChange={handleChange}
+        >
+          {post}
+        </CardTextField>
       </CardContent>
       <CardButton>
-        <ShareButton>Share</ShareButton>
+        <ShareButton type='button'>Share</ShareButton>
       </CardButton>
     </Card>
   );
