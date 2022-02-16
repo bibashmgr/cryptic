@@ -1,8 +1,11 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const dotenv = require('dotenv');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+
+// routes
+import usersRoutes from './routes/users.js';
 
 const app = express();
 dotenv.config();
@@ -10,6 +13,8 @@ dotenv.config();
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
+
+app.use('/users', usersRoutes);
 
 // constants:
 const CONNECTION_URL = process.env.MONGODB_URL;
