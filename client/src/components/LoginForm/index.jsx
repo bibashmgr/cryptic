@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
 
 // elements:
 import {
@@ -65,9 +65,12 @@ const LoginForm = () => {
 
     if (loginInfo.password === '') {
       errors.password = 'Password is required';
-    } else if (!bcrypt.compareSync(loginInfo.password, user.password)) {
+    } else if (loginInfo.password !== user.password) {
       errors.password = 'Invalid Password';
     }
+    // else if (!bcrypt.compareSync(loginInfo.password, user.password)) {
+    //   errors.password = 'Invalid Password';
+    // }
 
     setError(errors);
 
