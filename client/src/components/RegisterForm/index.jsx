@@ -1,7 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-
-import axios from 'axios';
+import { useState } from 'react';
 
 // elements:
 import {
@@ -20,26 +18,14 @@ import {
 } from './RegisterFormElements';
 
 const RegisterForm = () => {
-  // variables
-  const URL = 'http://localhost:8080/users';
-
-  // state
+  // states:
   const [registerInfo, setRegisterInfo] = useState({
     username: '',
     password: '',
     password2: '',
   });
-  const [error, setError] = useState({});
-  const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(URL)
-      .then((res) => res.data)
-      .then((data) => setUsers(data))
-      .catch((err) => console.log(err.message));
-  }, []);
-
+  // handlers:
   const handleChange = (e) => {
     if (e.target.name === 'username') {
       setRegisterInfo({ ...registerInfo, username: e.target.value });
@@ -54,52 +40,6 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    let errors = {};
-    let user = users.find(
-      (element) => element.username === registerInfo.username
-    );
-
-    if (registerInfo.username === '') {
-      errors.username = 'Username is required';
-    } else if (!/^[a-z0-9_.]+$/.test(registerInfo.username)) {
-      errors.username = 'Invalid Username';
-    } else if (user) {
-      errors.username = 'Username already taken';
-    }
-
-    if (registerInfo.password === '') {
-      errors.password = 'Password is required';
-    } else if (registerInfo.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters long';
-    }
-
-    if (registerInfo.password2 === '') {
-      errors.password2 = 'Confirm Password is required';
-    } else if (registerInfo.password !== registerInfo.password2) {
-      errors.password2 = 'Password doesnot match';
-    }
-
-    setError(errors);
-
-    if (Object.entries(errors).length === 0) {
-      axios
-        .post(URL, {
-          username: registerInfo.username,
-          password: registerInfo.password,
-        })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err.message));
-
-      setRegisterInfo({
-        username: '',
-        password: '',
-        password2: '',
-      });
-      console.log('Registration successful');
-    } else {
-      console.log(error);
-    }
   };
 
   return (

@@ -1,9 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-// import bcrypt from 'bcryptjs';
+import { useState } from 'react';
 
 // elements:
 import {
@@ -22,27 +18,13 @@ import {
 } from './LoginFormElements';
 
 const LoginForm = () => {
-  const navigate = useNavigate();
-
-  // variables
-  const URL = 'http://localhost:8080/users';
-
-  // state
+  // states:
   const [loginInfo, setLoginInfo] = useState({
     username: '',
     password: '',
   });
-  const [error, setError] = useState({});
-  const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(URL)
-      .then((res) => res.data)
-      .then((data) => setUsers(data))
-      .catch((err) => console.log(err.message));
-  }, []);
-
+  // handlers:
   const handleChange = (e) => {
     if (e.target.name === 'username') {
       setLoginInfo({ ...loginInfo, username: e.target.value });
@@ -54,31 +36,6 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let errors = {};
-    let user = users.find((element) => element.username === loginInfo.username);
-
-    if (loginInfo.username === '') {
-      errors.username = 'Username is required';
-    } else if (!user) {
-      errors.username = 'Invalid Username';
-    }
-
-    if (loginInfo.password === '') {
-      errors.password = 'Password is required';
-    } else if (loginInfo.password !== user.password) {
-      errors.password = 'Invalid Password';
-    }
-    // else if (!bcrypt.compareSync(loginInfo.password, user.password)) {
-    //   errors.password = 'Invalid Password';
-    // }
-
-    setError(errors);
-
-    if (Object.entries(errors).length === 0) {
-      navigate('/');
-    } else {
-      console.log(error);
-    }
   };
 
   return (
