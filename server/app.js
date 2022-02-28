@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
 // routes
-import usersRoutes from './routes/users.js';
+import authRoutes from './routes/auth.js';
 
 const app = express();
 dotenv.config();
@@ -14,7 +14,7 @@ app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 
-app.use('/users', usersRoutes);
+app.use('/api/auth', authRoutes);
 
 // constants:
 const CONNECTION_URL = process.env.MONGODB_URL;
