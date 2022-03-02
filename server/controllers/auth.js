@@ -29,6 +29,6 @@ export const loginUser = async (req, res) => {
         : res.status(200).json('Login Successful');
     }
   } catch (err) {
-    res.status(400).json('Failed to login');
+    res.status(400).json(err);
   }
 };
