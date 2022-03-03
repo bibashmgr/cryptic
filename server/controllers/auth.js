@@ -10,10 +10,10 @@ export const registerUser = async (req, res) => {
       username: req.body.username,
       password: hashPassword,
     });
-    const user = await newUser.save();
-    res.status(201).json(user);
-  } catch (err) {
-    res.status(400).json('Failed to register');
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
 
@@ -28,7 +28,7 @@ export const loginUser = async (req, res) => {
         ? res.status(400).json('Invalid Password')
         : res.status(200).json('Login Successful');
     }
-  } catch (err) {
-    res.status(400).json(err);
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
