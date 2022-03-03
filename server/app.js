@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 // routes
 import authRoutes from './routes/auth.js';
 import usersRoutes from './routes/users.js';
+import postsRoutes from './routes/posts.js';
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(helmet());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/posts', postsRoutes);
 
 // constants:
 const CONNECTION_URL = process.env.MONGODB_URL;
