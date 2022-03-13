@@ -33,10 +33,9 @@ const PostField = () => {
           name='confession'
           placeholder='Type your confession'
           rows='10'
+          value={post}
           onChange={handleChange}
-        >
-          {post}
-        </CardTextField>
+        ></CardTextField>
       </CardContent>
       <CardButton>
         <ShareButton type='button'>Share</ShareButton>
