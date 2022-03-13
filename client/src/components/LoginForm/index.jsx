@@ -1,6 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 // elements:
 import {
   FormContainer,
@@ -18,11 +21,13 @@ import {
 } from './LoginFormElements';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   // states:
   const [loginInfo, setLoginInfo] = useState({
     username: '',
     password: '',
   });
+  const [error, setError] = useState({});
 
   // handlers:
   const handleChange = (e) => {
@@ -36,6 +41,40 @@ const LoginForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let errors = {};
+
+    if (loginInfo.username === '') {
+      errors.username = 'Username is required';
+    } else if (
+      loginInfo.username.length < 3 ||
+      loginInfo.username.length > 20
+    ) {
+      errors.username = 'Invalid Username';
+    }
+
+    if (loginInfo.password === '') {
+      errors.password = 'Password is required';
+    } else if (
+      loginInfo.password.length < 6 ||
+      loginInfo.password.length > 20
+    ) {
+      errors.password = 'Invalid Password';
+    }
+
+    setError(errors);
+
+    if (Object.entries(errors).length === 0) {
+      axios
+        .post('http://localhost:8080/api/auth/login', loginInfo)
+        .then((res) => {
+          if (res.status === 200) {
+            navigate('/');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
