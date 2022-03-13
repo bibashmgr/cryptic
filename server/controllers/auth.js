@@ -6,12 +6,17 @@ export const registerUser = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt);
-    const newUser = await new User({
-      username: req.body.username,
-      password: hashPassword,
-    });
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    const user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      const newUser = await new User({
+        username: req.body.username,
+        password: hashPassword,
+      });
+      const savedUser = await newUser.save();
+      res.status(201).json(savedUser);
+    } else {
+      res.status(401).json('User already registered');
+    }
   } catch (error) {
     res.status(400).json(error);
   }

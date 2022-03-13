@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 
+import axios from 'axios';
+
 // elements:
 import {
   FormContainer,
@@ -24,6 +26,7 @@ const RegisterForm = () => {
     password: '',
     password2: '',
   });
+  const [error, setError] = useState({});
 
   // handlers:
   const handleChange = (e) => {
@@ -40,6 +43,53 @@ const RegisterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let errors = {};
+    let pattern = /^[a-z0-9_\.]+$/;
+
+    if (registerInfo.username === '') {
+      errors.username = 'Username is required';
+    } else if (
+      registerInfo.username.length < 3 ||
+      registerInfo.username.length > 20
+    ) {
+      errors.username = 'Invalid Username';
+    } else if (!pattern.test(registerInfo.username)) {
+      errors.username = 'Invalid Username';
+    }
+
+    if (registerInfo.password === '') {
+      errors.password = 'Password is required';
+    } else if (
+      registerInfo.password.length < 6 ||
+      registerInfo.password.length > 20
+    ) {
+      errors.password = 'Invalid Password';
+    }
+
+    if (registerInfo.password2 === '') {
+      errors.password2 = 'Confirm Password is required';
+    } else if (registerInfo.password !== registerInfo.password2) {
+      errors.password2 = 'Password doesnot match';
+    }
+
+    setError(errors);
+
+    if (Object.entries(errors).length === 0) {
+      axios
+        .post('http://localhost:8080/api/auth/register', registerInfo)
+        .then((res) => {
+          if (res.status === 201) {
+            setRegisterInfo({
+              username: '',
+              password: '',
+              password2: '',
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
