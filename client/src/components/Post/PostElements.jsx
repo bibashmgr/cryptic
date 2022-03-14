@@ -43,7 +43,6 @@ export const CardContent = styled.div`
   margin-bottom: 5px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   display: flex;
-  justify-content: center;
   min-height: 100px;
 `;
 
