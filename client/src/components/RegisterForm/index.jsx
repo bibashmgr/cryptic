@@ -44,7 +44,7 @@ const RegisterForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let errors = {};
-    let pattern = /^[a-z0-9_\.]+$/;
+    let pattern = /^[a-z0-9_.]+$/;
 
     if (registerInfo.username === '') {
       errors.username = 'Username is required';
