@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
+
+import axios from 'axios';
+import * as timeago from 'timeago.js';
 
 // elements
 import {
@@ -18,26 +22,29 @@ import {
   SaveLogo,
 } from './PostElements';
 
-const Post = () => {
+const Post = ({ post }) => {
+  const [username, setUsername] = useState('');
+  useEffect(() => {
+    const user = axios
+      .get(`http://localhost:8080/api/users/${post.userId}`)
+      .then((res) => res.data)
+      .then((data) => setUsername(data.username));
+  }, []);
   return (
     <Card>
       <CardHeader>
-        <CardAvatar src='/images/avatar.jpg' />
+        <CardAvatar src='/images/default_avatar.jpg' />
         <CardHeaderText>
-          <CardUserName>@keepitlow</CardUserName>
-          <CardDate>20 Jan 2020, 8:30 AM</CardDate>
+          <CardUserName>{username}</CardUserName>
+          <CardDate>{timeago.format(post.createdAt)}</CardDate>
         </CardHeaderText>
       </CardHeader>
       <CardContent>
-        <CardText>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum omnis
-          atque mollitia quaerat provident debitis qui, similique veniam illo
-          cum?
-        </CardText>
+        <CardText>{post.desc}</CardText>
       </CardContent>
       <CardButtons>
         <LikeButton>
-          <LikeCount>10</LikeCount>
+          <LikeCount>{post.likes.length}</LikeCount>
           <LikeLogo />
         </LikeButton>
         <SaveButton>
