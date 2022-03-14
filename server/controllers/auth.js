@@ -31,7 +31,7 @@ export const loginUser = async (req, res) => {
       const match = await bcrypt.compare(req.body.password, user.password);
       !match
         ? res.status(400).json('Invalid Password')
-        : res.status(200).json('Login Successful');
+        : res.status(200).json(user._id);
     }
   } catch (error) {
     res.status(400).json(error);
