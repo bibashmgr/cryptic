@@ -68,6 +68,7 @@ const LoginForm = () => {
         .post('http://localhost:8080/api/auth/login', loginInfo)
         .then((res) => {
           if (res.status === 200) {
+            localStorage.setItem('loginUser', res.data);
             navigate('/');
           }
         })
