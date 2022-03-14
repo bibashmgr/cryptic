@@ -1,5 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import axios from 'axios';
 
 // elements
 import {
@@ -14,8 +16,17 @@ import {
 } from './PostFieldElements';
 
 const PostField = () => {
-  // state
+  // state:
   const [post, setPost] = useState('');
+  const [currentUser, setCurrentUser] = useState('');
+
+  useEffect(() => {
+    const loginUser = localStorage.getItem('loginUser');
+    axios
+      .get(`http://localhost:8080/api/users/${loginUser}`)
+      .then((res) => res.data)
+      .then((data) => setCurrentUser(data));
+  }, []);
 
   const handleChange = (e) => {
     setPost(e.target.value);
@@ -24,8 +35,8 @@ const PostField = () => {
   return (
     <Card>
       <CardHeader>
-        <CardAvatar src='/images/avatar.jpg' />
-        <CardUserName>@keepitlow</CardUserName>
+        <CardAvatar src='/images/default_avatar.jpg' />
+        <CardUserName>{currentUser.username}</CardUserName>
       </CardHeader>
       <CardContent>
         <CardTextField
