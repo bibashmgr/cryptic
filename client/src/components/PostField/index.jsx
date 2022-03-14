@@ -16,20 +16,50 @@ import {
 } from './PostFieldElements';
 
 const PostField = () => {
+  // variables:
+  const loginUser = localStorage.getItem('loginUser');
+
   // state:
-  const [post, setPost] = useState('');
+  const [post, setPost] = useState({
+    userId: loginUser,
+    desc: '',
+  });
   const [currentUser, setCurrentUser] = useState('');
+  const [error, setError] = useState({});
 
   useEffect(() => {
-    const loginUser = localStorage.getItem('loginUser');
     axios
       .get(`http://localhost:8080/api/users/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setCurrentUser(data));
-  }, []);
+  }, [loginUser]);
 
   const handleChange = (e) => {
-    setPost(e.target.value);
+    setPost({
+      ...post,
+      desc: e.target.value,
+    });
+  };
+
+  const handleShare = (e) => {
+    let errors = {};
+    if (post.userId === '') {
+      errors.userId = 'UserId is empty';
+    }
+    if (post.desc === '') {
+      errors.desc = 'Text is empty';
+    }
+    setError(errors);
+    if (Object.entries(errors).length === 0) {
+      axios.post('http://localhost:8080/api/posts', post).then((res) => {
+        if (res.status === 201) {
+          setPost({
+            userId: '',
+            desc: '',
+          });
+        }
+      });
+    }
   };
 
   return (
@@ -44,12 +74,14 @@ const PostField = () => {
           name='confession'
           placeholder='Type your confession'
           rows='10'
-          value={post}
+          value={post.desc}
           onChange={handleChange}
         ></CardTextField>
       </CardContent>
       <CardButton>
-        <ShareButton type='button'>Share</ShareButton>
+        <ShareButton type='button' onClick={handleShare}>
+          Share
+        </ShareButton>
       </CardButton>
     </Card>
   );
