@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 
 import axios from 'axios';
-import * as timeago from 'timeago.js';
+import moment from 'moment';
 
 // elements
 import {
@@ -25,18 +25,18 @@ import {
 const Post = ({ post }) => {
   const [username, setUsername] = useState('');
   useEffect(() => {
-    const user = axios
+    axios
       .get(`http://localhost:8080/api/users/${post.userId}`)
       .then((res) => res.data)
       .then((data) => setUsername(data.username));
-  }, []);
+  }, [post.userId]);
   return (
     <Card>
       <CardHeader>
         <CardAvatar src='/images/default_avatar.jpg' />
         <CardHeaderText>
           <CardUserName>{username}</CardUserName>
-          <CardDate>{timeago.format(post.createdAt)}</CardDate>
+          <CardDate>{moment(post.createdAt).fromNow()}</CardDate>
         </CardHeaderText>
       </CardHeader>
       <CardContent>
