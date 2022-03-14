@@ -8,7 +8,6 @@ export const MiddleBarContainer = styled.nav`
   margin-top: 50px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   width: 100%;
-  height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,6 +23,7 @@ export const BarItems = styled.ul`
 
 export const BarItem = styled.li`
   height: 100%;
+  padding: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
