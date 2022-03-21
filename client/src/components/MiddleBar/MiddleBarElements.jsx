@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 // icons
 import { HiOutlineViewGrid } from 'react-icons/hi';
-import { MdSaveAlt } from 'react-icons/md';
+import { BsBookmark } from 'react-icons/bs';
 
 export const MiddleBarContainer = styled.nav`
   margin-top: 50px;
@@ -41,7 +41,7 @@ export const GridLogo = styled(HiOutlineViewGrid)`
   color: #78bcff;
 `;
 
-export const SaveLogo = styled(MdSaveAlt)`
+export const SaveLogo = styled(BsBookmark)`
   font-size: 1.5rem;
   font-weight: 700;
   color: #78bcff;
