@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-// icons
-import { BiLike } from 'react-icons/bi';
-import { MdSaveAlt } from 'react-icons/md';
-
 export const Card = styled.div``;
 
 export const CardHeader = styled.div`
@@ -60,6 +56,8 @@ export const CardButtons = styled.div`
   grid-gap: 2.5px;
 `;
 
+// like-button
+
 export const LikeButton = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   height: 100%;
@@ -67,9 +65,10 @@ export const LikeButton = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: #ffffff;
 `;
 
-export const LikeCount = styled.div`
+export const LikeCounter = styled.div`
   margin-right: 5px;
   opacity: 0.75;
   font-size: 1rem;
@@ -77,11 +76,7 @@ export const LikeCount = styled.div`
   color: #78bcff;
 `;
 
-export const LikeLogo = styled(BiLike)`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #78bcff;
-`;
+// share-button
 
 export const SaveButton = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -89,10 +84,5 @@ export const SaveButton = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-`;
-
-export const SaveLogo = styled(MdSaveAlt)`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #78bcff;
+  background-color: #ffffff;
 `;
