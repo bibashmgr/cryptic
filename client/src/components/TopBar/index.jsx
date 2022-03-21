@@ -15,7 +15,7 @@ const TopBar = () => {
       <TopBarBox>
         <TopBarLogo>cryptic</TopBarLogo>
         <TopBarLogout>
-          <LogoutLogo />
+          <LogoutLogo title='logout' />
         </TopBarLogout>
       </TopBarBox>
     </TopBarContainer>

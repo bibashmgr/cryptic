@@ -10,6 +10,7 @@ export const CardAvatar = styled.img`
   width: 120px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  cursor: crosshair;
 `;
 
 export const CardUsername = styled.div`

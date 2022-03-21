@@ -34,6 +34,7 @@ export const TopBarLogo = styled.div`
   font-size: 1.5rem;
   font-weight: 700;
   color: #ffffff;
+  cursor: pointer;
 `;
 
 export const TopBarLogout = styled.div`
