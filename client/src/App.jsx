@@ -1,5 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 
 // scss
 import './App.scss';
@@ -12,14 +18,31 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 
 const App = () => {
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    const loginUser = localStorage.getItem('loginUser');
+    loginUser ? setIsAuth(true) : setIsAuth(false);
+  }, []);
+
   return (
     <Router>
       <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route path='/share' element={<Share />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
+        {!isAuth && (
+          <>
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </>
+        )}
+
+        {isAuth && (
+          <>
+            <Route exact path='/' element={<Home />} />
+            <Route path='/share' element={<Share />} />
+            <Route path='/profile' element={<Profile />} />
+          </>
+        )}
+        <Route path='*' element={<Navigate to={isAuth ? '/' : '/login'} />} />
       </Routes>
     </Router>
   );
