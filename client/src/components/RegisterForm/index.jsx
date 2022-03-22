@@ -26,7 +26,6 @@ const RegisterForm = () => {
     password: '',
     password2: '',
   });
-  const [error, setError] = useState({});
 
   // handlers:
   const handleChange = (e) => {
@@ -72,8 +71,6 @@ const RegisterForm = () => {
       errors.password2 = 'Password doesnot match';
     }
 
-    setError(errors);
-
     if (Object.entries(errors).length === 0) {
       axios
         .post('http://localhost:8080/api/auth/register', registerInfo)
@@ -98,7 +95,7 @@ const RegisterForm = () => {
         <SiteLogo>cryptic</SiteLogo>
         <FormHeading>Create An Account</FormHeading>
         <InputsContainer onSubmit={handleSubmit}>
-          <InputContainer>
+          <InputContainer style={{ position: 'relative' }}>
             <InputLabel htmlFor='username'>Username:</InputLabel>
             <InputField
               type='text'
@@ -108,6 +105,17 @@ const RegisterForm = () => {
               onChange={handleChange}
               value={registerInfo.username}
             />
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-20px',
+                fontSize: '0.75rem',
+                fontWeight: '500',
+                opacity: '0.7',
+              }}
+            >
+              Reminder: Donot use your real name.
+            </div>
           </InputContainer>
           <InputContainer>
             <InputLabel htmlFor='password'>Password:</InputLabel>

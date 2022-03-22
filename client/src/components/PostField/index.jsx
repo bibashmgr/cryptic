@@ -25,7 +25,6 @@ const PostField = () => {
     desc: '',
   });
   const [currentUser, setCurrentUser] = useState('');
-  const [error, setError] = useState({});
 
   useEffect(() => {
     axios
@@ -43,13 +42,10 @@ const PostField = () => {
 
   const handleShare = (e) => {
     let errors = {};
-    if (post.userId === '') {
-      errors.userId = 'UserId is empty';
-    }
     if (post.desc === '') {
       errors.desc = 'Text is empty';
     }
-    setError(errors);
+
     if (Object.entries(errors).length === 0) {
       axios.post('http://localhost:8080/api/posts', post).then((res) => {
         if (res.status === 201) {

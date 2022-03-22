@@ -27,7 +27,6 @@ const LoginForm = () => {
     username: '',
     password: '',
   });
-  const [error, setError] = useState({});
 
   // handlers:
   const handleChange = (e) => {
@@ -60,8 +59,6 @@ const LoginForm = () => {
     ) {
       errors.password = 'Invalid Password';
     }
-
-    setError(errors);
 
     if (Object.entries(errors).length === 0) {
       axios
