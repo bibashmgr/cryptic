@@ -25,17 +25,13 @@ import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
 const Post = ({ post }) => {
-  // variables:
-  const loginUser = localStorage.getItem('loginUser');
-
-  // styles:
   const logoStyle = {
     fontSize: '1.5rem',
     fontWeight: 700,
     color: '#78bcff',
   };
 
-  // states:
+  const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
   const [username, setUsername] = useState('');
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
@@ -53,7 +49,6 @@ const Post = ({ post }) => {
       .then((data) => setUsername(data.username));
   }, [post.userId]);
 
-  // handlers:
   const handleLike = () => {
     axios
       .put(`http://localhost:8080/api/posts/${post._id}/like`, {

@@ -16,10 +16,7 @@ import {
 } from './PostFieldElements';
 
 const PostField = () => {
-  // variables:
-  const loginUser = localStorage.getItem('loginUser');
-
-  // state:
+  const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
   const [post, setPost] = useState({
     userId: loginUser,
     desc: '',

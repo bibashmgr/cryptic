@@ -15,10 +15,8 @@ import MiddleBar from '../components/MiddleBar';
 import Posts from '../components/Posts';
 
 const Profile = () => {
-  // variables:
-  const loginUser = localStorage.getItem('loginUser');
-
-  // states:
+  const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
+  const [user, setUser] = useState('');
   const [isOpen, setIsOpen] = useState(true);
   const [myPosts, setMyPosts] = useState([]);
   const [savedPosts, setSavedPosts] = useState({});
@@ -37,12 +35,19 @@ const Profile = () => {
       .then((data) => setSavedPosts(data));
   }, [loginUser]);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/users/${loginUser}`)
+      .then((res) => res.data)
+      .then((data) => setUser(data.username));
+  }, [loginUser]);
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <div className='main-container'>
         <div className='sub-container'>
           <div className='profile-container'>
-            <ProfileCard />
+            <ProfileCard user={user} />
             <MiddleBar setIsOpen={setIsOpen} />
             <Posts posts={isOpen ? myPosts : savedPosts} />
           </div>
