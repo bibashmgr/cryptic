@@ -8,7 +8,7 @@ import TopBar from '../components/TopBar';
 import NavBar from '../components/NavBar';
 import PostField from '../components/PostField';
 
-const Share = () => {
+const Share = ({ setIsAuth }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <div className='main-container'>
@@ -16,7 +16,7 @@ const Share = () => {
           <PostField />
         </div>
       </div>
-      <TopBar />
+      <TopBar setIsAuth={setIsAuth} />
       <NavBar />
     </div>
   );

@@ -12,7 +12,7 @@ import TopBar from '../components/TopBar';
 import NavBar from '../components/NavBar';
 import Post from '../components/Post';
 
-const Home = () => {
+const Home = ({ setIsAuth }) => {
   // states:
   const [posts, setPosts] = useState([]);
 
@@ -35,7 +35,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <TopBar />
+      <TopBar setIsAuth={setIsAuth} />
       <NavBar />
     </div>
   );

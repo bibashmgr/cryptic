@@ -14,7 +14,7 @@ import ProfileCard from '../components/ProfileCard';
 import MiddleBar from '../components/MiddleBar';
 import Posts from '../components/Posts';
 
-const Profile = () => {
+const Profile = ({ setIsAuth }) => {
   const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
   const [user, setUser] = useState('');
   const [isOpen, setIsOpen] = useState(true);
@@ -53,7 +53,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <TopBar />
+      <TopBar setIsAuth={setIsAuth} />
       <NavBar />
     </div>
   );

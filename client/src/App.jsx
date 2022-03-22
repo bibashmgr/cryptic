@@ -30,16 +30,19 @@ const App = () => {
       <Routes>
         {!isAuth && (
           <>
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={<Login setIsAuth={setIsAuth} />} />
             <Route path='/register' element={<Register />} />
           </>
         )}
 
         {isAuth && (
           <>
-            <Route exact path='/' element={<Home />} />
-            <Route path='/share' element={<Share />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route exact path='/' element={<Home setIsAuth={setIsAuth} />} />
+            <Route path='/share' element={<Share setIsAuth={setIsAuth} />} />
+            <Route
+              path='/profile'
+              element={<Profile setIsAuth={setIsAuth} />}
+            />
           </>
         )}
         <Route path='*' element={<Navigate to={isAuth ? '/' : '/login'} />} />

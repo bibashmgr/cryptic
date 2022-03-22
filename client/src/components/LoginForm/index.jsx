@@ -20,7 +20,7 @@ import {
   SiteLogo,
 } from './LoginFormElements';
 
-const LoginForm = () => {
+const LoginForm = ({ setIsAuth }) => {
   const navigate = useNavigate();
   // states:
   const [loginInfo, setLoginInfo] = useState({
@@ -66,6 +66,7 @@ const LoginForm = () => {
         .then((res) => {
           if (res.status === 200) {
             localStorage.setItem('loginUser', res.data);
+            setIsAuth(true);
             navigate('/');
           }
         })
