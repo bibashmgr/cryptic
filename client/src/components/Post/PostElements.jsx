@@ -40,7 +40,14 @@ export const CardContent = styled.div`
   margin-bottom: 5px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   display: flex;
-  min-height: 100px;
+  height: 135px;
+  overflow-y: scroll;
+
+  @media screen and (max-width: 768px) {
+    height: unset;
+    min-height: 135px;
+    overflow-y: unset;
+  }
 `;
 
 export const CardText = styled.div`
