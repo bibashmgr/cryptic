@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 
 // routes
+import welcomeRoutes from './routes/index.js';
 import authRoutes from './routes/auth.js';
 import usersRoutes from './routes/users.js';
 import postsRoutes from './routes/posts.js';
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
 app.use(helmet());
 
+app.use('/', welcomeRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/posts', postsRoutes);
