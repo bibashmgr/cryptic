@@ -1,7 +1,7 @@
 {
-  "short_name": "cryptic",
-  "name": "cryptic | A site for confession",
-  "description" : "cryptic is a site that allows users to post their confessions and secrets anonymously.",
+  "short_name": "cryptix",
+  "name": "cryptix | A site for confession",
+  "description" : "cryptix is a site that allows users to post their confessions and secrets anonymously.",
   "start_url": "/login",
   "display": "standalone",
   "theme_color": "#78bcff",

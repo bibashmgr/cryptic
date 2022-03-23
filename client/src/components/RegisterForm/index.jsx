@@ -90,7 +90,7 @@ const RegisterForm = () => {
   return (
     <FormContainer>
       <FormBox>
-        <SiteLogo>cryptic</SiteLogo>
+        <SiteLogo>cryptix</SiteLogo>
         <FormHeading>Create An Account</FormHeading>
         <InputsContainer onSubmit={handleSubmit}>
           <InputContainer style={{ position: 'relative' }}>

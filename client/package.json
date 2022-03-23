@@ -1,5 +1,5 @@
 {
-  "name": "cryptic-client",
+  "name": "cryptix",
   "version": "1.0.0",
   "private": true,
   "proxy": "https://cryptic-server.herokuapp.com/api/",

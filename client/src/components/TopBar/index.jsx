@@ -20,7 +20,7 @@ const TopBar = ({ setIsAuth }) => {
   return (
     <TopBarContainer>
       <TopBarBox>
-        <TopBarLogo>cryptic</TopBarLogo>
+        <TopBarLogo>cryptix</TopBarLogo>
         <TopBarLogout>
           <LogoutLogo title='logout' onClick={handleLogout} />
         </TopBarLogout>

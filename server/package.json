@@ -1,5 +1,5 @@
 {
-  "name": "cryptic-server",
+  "name": "cryptix",
   "version": "1.0.0",
   "description": "A site to post confessions and secrets anonumously.",
   "main": "app.js",

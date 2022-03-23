@@ -78,7 +78,7 @@ const LoginForm = ({ setIsAuth }) => {
   return (
     <FormContainer>
       <FormBox>
-        <SiteLogo>cryptic</SiteLogo>
+        <SiteLogo>cryptix</SiteLogo>
         <FormHeading>Welcome</FormHeading>
         <InputsContainer onSubmit={handleSubmit}>
           <InputContainer>
