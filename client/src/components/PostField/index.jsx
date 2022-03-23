@@ -30,7 +30,7 @@ const PostField = () => {
       .get(`${BASE_URL}/api/users/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setCurrentUser(data));
-  }, [loginUser]);
+  }, [loginUser, BASE_URL]);
 
   const handleChange = (e) => {
     setPost({

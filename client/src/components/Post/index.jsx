@@ -46,7 +46,7 @@ const Post = ({ post }) => {
       .get(`${BASE_URL}/api/users/${post.userId}`)
       .then((res) => res.data)
       .then((data) => setUsername(data.username));
-  }, [post.userId]);
+  }, [post.userId, BASE_URL]);
 
   const handleLike = () => {
     axios

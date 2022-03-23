@@ -25,21 +25,21 @@ const Profile = ({ setIsAuth }) => {
       .get(`${BASE_URL}/api/posts/myposts/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setMyPosts(data));
-  }, [loginUser]);
+  }, [loginUser, BASE_URL]);
 
   useEffect(() => {
     axios
       .get(`${BASE_URL}/api/posts/savedposts/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setSavedPosts(data));
-  }, [loginUser]);
+  }, [loginUser, BASE_URL]);
 
   useEffect(() => {
     axios
       .get(`${BASE_URL}/api/users/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setUser(data.username));
-  }, [loginUser]);
+  }, [loginUser, BASE_URL]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

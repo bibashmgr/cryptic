@@ -20,7 +20,7 @@ const Home = ({ setIsAuth }) => {
       .then((res) => res.data)
       .then((data) => setPosts(data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [BASE_URL]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
