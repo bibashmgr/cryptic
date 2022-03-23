@@ -17,7 +17,9 @@ import {
 const PostField = () => {
   const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
-  const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
+  const loginUser = localStorage.getItem('loginUser');
+  // const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
+
   const [post, setPost] = useState({
     userId: loginUser,
     desc: '',

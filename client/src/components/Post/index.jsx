@@ -30,7 +30,9 @@ const Post = ({ post }) => {
     color: '#78bcff',
   };
 
-  const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
+  const loginUser = localStorage.getItem('loginUser');
+
+  // const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
   const [username, setUsername] = useState('');
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
