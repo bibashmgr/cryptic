@@ -1,9 +1,7 @@
 import React from 'react';
 
-// components:
 import Post from '../Post';
 
-// elements:
 import { PostContainer } from './PostsElements';
 
 const Posts = ({ posts }) => {

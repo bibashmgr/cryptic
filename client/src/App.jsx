@@ -7,10 +7,8 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-// scss
 import './App.scss';
 
-// pages
 import Home from './pages/Home';
 import Share from './pages/Share';
 import Profile from './pages/Profile';

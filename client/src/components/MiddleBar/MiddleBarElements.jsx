@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-// icons
 import { HiOutlineViewGrid } from 'react-icons/hi';
 import { BsBookmark } from 'react-icons/bs';
 

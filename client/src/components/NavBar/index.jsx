@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 
-// elements
 import {
   HomeLogo,
   NavBarContainer,

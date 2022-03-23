@@ -1,9 +1,7 @@
 import React from 'react';
 
-// scss
 import '../styles/Main.scss';
 
-// components
 import TopBar from '../components/TopBar';
 import NavBar from '../components/NavBar';
 import PostField from '../components/PostField';

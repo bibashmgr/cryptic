@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-// icons
 import { MdLogout } from 'react-icons/md';
 
 export const TopBarContainer = styled.header`

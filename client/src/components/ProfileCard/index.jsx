@@ -1,6 +1,5 @@
 import React from 'react';
 
-// elements
 import { Card, CardAvatar, CardUsername } from './ProfileCardElements';
 
 const ProfileCard = ({ user }) => {

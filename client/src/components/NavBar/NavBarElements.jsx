@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-// icons
 import { BiHomeAlt } from 'react-icons/bi';
 import { FaRegShareSquare } from 'react-icons/fa';
 import { FiUser } from 'react-icons/fi';

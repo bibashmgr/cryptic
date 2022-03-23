@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { HeroBox, HeroContainer, HeroImage } from './RegisterHeroElements';
 
 const RegisterHero = () => {
