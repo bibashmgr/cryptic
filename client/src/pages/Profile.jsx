@@ -1,13 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
 import axios from 'axios';
 
-// scss
 import '../styles/Main.scss';
 import '../styles/Profile.scss';
 
-// components
 import TopBar from '../components/TopBar';
 import NavBar from '../components/NavBar';
 import ProfileCard from '../components/ProfileCard';
@@ -15,6 +12,8 @@ import MiddleBar from '../components/MiddleBar';
 import Posts from '../components/Posts';
 
 const Profile = ({ setIsAuth }) => {
+  const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
   const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
   const [user, setUser] = useState('');
   const [isOpen, setIsOpen] = useState(true);
@@ -23,21 +22,21 @@ const Profile = ({ setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/posts/myposts/${loginUser}`)
+      .get(`${BASE_URL}/api/posts/myposts/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setMyPosts(data));
   }, [loginUser]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/posts/savedposts/${loginUser}`)
+      .get(`${BASE_URL}/api/posts/savedposts/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setSavedPosts(data));
   }, [loginUser]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/users/${loginUser}`)
+      .get(`${BASE_URL}/api/users/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setUser(data.username));
   }, [loginUser]);

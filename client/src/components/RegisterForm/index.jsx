@@ -1,9 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-
 import axios from 'axios';
 
-// elements:
 import {
   FormContainer,
   FormHeading,
@@ -20,14 +18,14 @@ import {
 } from './RegisterFormElements';
 
 const RegisterForm = () => {
-  // states:
+  const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
   const [registerInfo, setRegisterInfo] = useState({
     username: '',
     password: '',
     password2: '',
   });
 
-  // handlers:
   const handleChange = (e) => {
     if (e.target.name === 'username') {
       setRegisterInfo({ ...registerInfo, username: e.target.value });
@@ -73,7 +71,7 @@ const RegisterForm = () => {
 
     if (Object.entries(errors).length === 0) {
       axios
-        .post('http://localhost:8080/api/auth/register', registerInfo)
+        .post(`${BASE_URL}/api/auth/register`, registerInfo)
         .then((res) => {
           if (res.status === 201) {
             setRegisterInfo({

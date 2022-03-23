@@ -16,6 +16,8 @@ import {
 } from './PostFieldElements';
 
 const PostField = () => {
+  const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
   const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
   const [post, setPost] = useState({
     userId: loginUser,
@@ -25,7 +27,7 @@ const PostField = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/users/${loginUser}`)
+      .get(`${BASE_URL}/api/users/${loginUser}`)
       .then((res) => res.data)
       .then((data) => setCurrentUser(data));
   }, [loginUser]);
@@ -44,7 +46,7 @@ const PostField = () => {
     }
 
     if (Object.entries(errors).length === 0) {
-      axios.post('http://localhost:8080/api/posts', post).then((res) => {
+      axios.post(`${BASE_URL}/api/posts`, post).then((res) => {
         if (res.status === 201) {
           setPost({
             userId: '',

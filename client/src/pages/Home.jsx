@@ -1,24 +1,22 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
 import axios from 'axios';
 
-// scss
 import '../styles/Main.scss';
 import '../styles/Home.scss';
 
-// components
 import TopBar from '../components/TopBar';
 import NavBar from '../components/NavBar';
 import Post from '../components/Post';
 
 const Home = ({ setIsAuth }) => {
-  // states:
+  const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     axios
-      .get('http://localhost:8080/api/posts')
+      .get(`${BASE_URL}/api/posts`)
       .then((res) => res.data)
       .then((data) => setPosts(data))
       .catch((err) => console.log(err));

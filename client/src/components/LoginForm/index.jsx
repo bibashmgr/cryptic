@@ -1,10 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-// elements:
 import {
   FormContainer,
   FormHeading,
@@ -22,13 +20,14 @@ import {
 
 const LoginForm = ({ setIsAuth }) => {
   const navigate = useNavigate();
-  // states:
+
+  const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
   const [loginInfo, setLoginInfo] = useState({
     username: '',
     password: '',
   });
 
-  // handlers:
   const handleChange = (e) => {
     if (e.target.name === 'username') {
       setLoginInfo({ ...loginInfo, username: e.target.value });
@@ -62,7 +61,7 @@ const LoginForm = ({ setIsAuth }) => {
 
     if (Object.entries(errors).length === 0) {
       axios
-        .post('http://localhost:8080/api/auth/login', loginInfo)
+        .post(`${BASE_URL}/api/auth/login`, loginInfo)
         .then((res) => {
           if (res.status === 200) {
             localStorage.setItem('loginUser', res.data);

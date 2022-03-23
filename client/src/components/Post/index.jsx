@@ -1,10 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
 import axios from 'axios';
 import moment from 'moment';
 
-// elements
 import {
   Card,
   CardAvatar,
@@ -20,11 +18,12 @@ import {
   SaveButton,
 } from './PostElements';
 
-// icons
 import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
 const Post = ({ post }) => {
+  const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
   const logoStyle = {
     fontSize: '1.5rem',
     fontWeight: 700,
@@ -44,14 +43,14 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/users/${post.userId}`)
+      .get(`${BASE_URL}/api/users/${post.userId}`)
       .then((res) => res.data)
       .then((data) => setUsername(data.username));
   }, [post.userId]);
 
   const handleLike = () => {
     axios
-      .put(`http://localhost:8080/api/posts/${post._id}/like`, {
+      .put(`${BASE_URL}/api/posts/${post._id}/like`, {
         userId: loginUser,
       })
       .then((res) => console.log(res));
@@ -61,7 +60,7 @@ const Post = ({ post }) => {
 
   const handleSave = (e) => {
     axios
-      .put(`http://localhost:8080/api/posts/${post._id}/save`, {
+      .put(`${BASE_URL}/api/posts/${post._id}/save`, {
         userId: loginUser,
       })
       .then((res) => console.log(res));
