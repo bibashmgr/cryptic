@@ -12,7 +12,7 @@ export const createPost = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ createdAt: -1 });
     res.status(200).json(posts);
   } catch (error) {
     res.status(404).json(error);
@@ -21,7 +21,9 @@ export const getPosts = async (req, res) => {
 
 export const getMyPosts = async (req, res) => {
   try {
-    const posts = await Post.find({ userId: req.params.id });
+    const posts = await Post.find({ userId: req.params.id }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(posts);
   } catch (error) {
     res.status(404).json(error);
@@ -31,7 +33,7 @@ export const getMyPosts = async (req, res) => {
 export const getSavedPosts = async (req, res) => {
   try {
     const filterPosts = [];
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ createdAt: -1 });
     const savedPosts = posts.map((post) => {
       if (post.saved.includes(req.params.id)) {
         filterPosts.push(post);

@@ -14,7 +14,7 @@ export const getUser = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await User.find().sort({ createdAt: -1 });
     const filterUsers = users.map((user) => {
       const { password, createdAt, updatedAt, ...others } = user._doc;
       return others;
