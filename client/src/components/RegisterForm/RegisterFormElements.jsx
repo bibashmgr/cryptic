@@ -50,6 +50,7 @@ export const InputField = styled.input`
   border-radius: 30px;
   width: 100%;
   padding: 10px 20px;
+  font-size: 16px;
 `;
 
 export const LoginButton = styled.button`

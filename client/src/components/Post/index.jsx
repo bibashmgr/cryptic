@@ -51,21 +51,17 @@ const Post = ({ post }) => {
   }, [post.userId, BASE_URL]);
 
   const handleLike = () => {
-    axios
-      .put(`${BASE_URL}/api/posts/${post._id}/like`, {
-        userId: loginUser,
-      })
-      .then((res) => console.log(res));
+    axios.put(`${BASE_URL}/api/posts/${post._id}/like`, {
+      userId: loginUser,
+    });
     setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
     setIsLiked(!isLiked);
   };
 
   const handleSave = (e) => {
-    axios
-      .put(`${BASE_URL}/api/posts/${post._id}/save`, {
-        userId: loginUser,
-      })
-      .then((res) => console.log(res));
+    axios.put(`${BASE_URL}/api/posts/${post._id}/save`, {
+      userId: loginUser,
+    });
     setIsSaved(!isSaved);
   };
 
