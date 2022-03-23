@@ -14,8 +14,8 @@ import Posts from '../components/Posts';
 const Profile = ({ setIsAuth }) => {
   const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
-  const loginUser = useState(localStorage.getItem('loginUser'));
-  // const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
+  const loginUser = localStorage.getItem('loginUser');
+
   const [user, setUser] = useState('');
   const [isOpen, setIsOpen] = useState(true);
   const [myPosts, setMyPosts] = useState([]);
