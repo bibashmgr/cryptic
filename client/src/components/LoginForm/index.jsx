@@ -27,6 +27,10 @@ const LoginForm = ({ setIsAuth }) => {
     username: '',
     password: '',
   });
+  const [error, setError] = useState({
+    username: '',
+    password: '',
+  });
 
   const handleChange = (e) => {
     if (e.target.name === 'username') {
@@ -59,6 +63,8 @@ const LoginForm = ({ setIsAuth }) => {
       errors.password = 'Invalid Password';
     }
 
+    setError(errors);
+
     if (Object.entries(errors).length === 0) {
       axios
         .post(`${BASE_URL}/api/auth/login`, loginInfo)
@@ -90,6 +96,9 @@ const LoginForm = ({ setIsAuth }) => {
               id='username'
               onChange={handleChange}
               value={loginInfo.username}
+              style={{
+                border: error.username ? '1px solid red' : '1px solid #2e2e39',
+              }}
             />
           </InputContainer>
           <InputContainer>
@@ -101,6 +110,9 @@ const LoginForm = ({ setIsAuth }) => {
               id='password'
               onChange={handleChange}
               value={loginInfo.password}
+              style={{
+                border: error.password ? '1px solid red' : '1px solid #2e2e39',
+              }}
             />
           </InputContainer>
           <LoginButton type='submit'>Sign in</LoginButton>

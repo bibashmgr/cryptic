@@ -25,6 +25,11 @@ const RegisterForm = () => {
     password: '',
     password2: '',
   });
+  const [error, setError] = useState({
+    username: '',
+    password: '',
+    password2: '',
+  });
 
   const handleChange = (e) => {
     if (e.target.name === 'username') {
@@ -69,6 +74,8 @@ const RegisterForm = () => {
       errors.password2 = 'Password doesnot match';
     }
 
+    setError(errors);
+
     if (Object.entries(errors).length === 0) {
       axios
         .post(`${BASE_URL}/api/auth/register`, registerInfo)
@@ -102,6 +109,9 @@ const RegisterForm = () => {
               id='username'
               onChange={handleChange}
               value={registerInfo.username}
+              style={{
+                border: error.username ? '1px solid red' : '1px solid #2e2e39',
+              }}
             />
             <div
               style={{
@@ -124,6 +134,9 @@ const RegisterForm = () => {
               id='password'
               onChange={handleChange}
               value={registerInfo.password}
+              style={{
+                border: error.password ? '1px solid red' : '1px solid #2e2e39',
+              }}
             />
           </InputContainer>
           <InputContainer>
@@ -135,6 +148,9 @@ const RegisterForm = () => {
               id='confirm-password'
               onChange={handleChange}
               value={registerInfo.password2}
+              style={{
+                border: error.password2 ? '1px solid red' : '1px solid #2e2e39',
+              }}
             />
           </InputContainer>
           <LoginButton type='submit'>Sign up</LoginButton>
