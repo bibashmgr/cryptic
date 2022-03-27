@@ -1,0 +1,52 @@
+#show{
+    visibility: visible;
+    animation: fromRight 2.5s;
+
+    @keyframes fromRight {
+        0%{
+            right: -200px;
+        }
+        20%{
+            right: 20px;
+        }
+        80%{
+            right: 20px;
+        }
+        100%{
+            right: -200px;
+        }
+    }
+}
+
+#hide{
+    visibility: hidden;
+    animation: none;
+}
+
+#reveal {
+    visibility: visible;
+    animation: fromLeft 2.5s;
+
+    @keyframes fromLeft {
+        0% {
+            left: -200px;
+        }
+
+        20% {
+            left: 20px;
+        }
+
+        80% {
+            left: 20px;
+        }
+
+        100% {
+            left: -200px;
+        }
+    }
+}
+
+#bury {
+    visibility: hidden;
+    animation: none;
+}
