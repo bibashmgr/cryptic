@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import {
@@ -17,6 +17,8 @@ import {
   SiteLogo,
 } from './RegisterFormElements';
 
+import SnackBar from '../SnackBar';
+
 const RegisterForm = () => {
   const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -30,6 +32,12 @@ const RegisterForm = () => {
     password: '',
     password2: '',
   });
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [isRight, setIsRight] = useState(true);
+
+  useEffect(() => {
+    setIsRight(true);
+  }, [isRight]);
 
   const handleChange = (e) => {
     if (e.target.name === 'username') {
@@ -49,48 +57,50 @@ const RegisterForm = () => {
     let pattern = /^[a-z0-9_.]+$/;
 
     if (registerInfo.username === '') {
-      errors.username = 'Username is required';
+      errors.username = 'Username is required.';
     } else if (
       registerInfo.username.length < 3 ||
       registerInfo.username.length > 20
     ) {
-      errors.username = 'Invalid Username';
+      errors.username = 'Invalid username!';
     } else if (!pattern.test(registerInfo.username)) {
-      errors.username = 'Invalid Username';
+      errors.username = 'Invalid username!';
     }
 
     if (registerInfo.password === '') {
-      errors.password = 'Password is required';
+      errors.password = 'Password is required.';
     } else if (
       registerInfo.password.length < 6 ||
       registerInfo.password.length > 20
     ) {
-      errors.password = 'Invalid Password';
+      errors.password = 'Invalid password!';
     }
 
     if (registerInfo.password2 === '') {
-      errors.password2 = 'Confirm Password is required';
+      errors.password2 = 'Confirm Password is required.';
     } else if (registerInfo.password !== registerInfo.password2) {
-      errors.password2 = 'Password doesnot match';
+      errors.password2 = 'Password doesnot match!';
     }
 
     setError(errors);
 
+    if (Object.entries(errors).length > 0) {
+      setShowSnackbar(true);
+      setTimeout(() => {
+        setShowSnackbar(false);
+      }, 2500);
+    }
+
     if (Object.entries(errors).length === 0) {
-      axios
-        .post(`${BASE_URL}/api/auth/register`, registerInfo)
-        .then((res) => {
-          if (res.status === 201) {
-            setRegisterInfo({
-              username: '',
-              password: '',
-              password2: '',
-            });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      axios.post(`${BASE_URL}/api/auth/register`, registerInfo).then((res) => {
+        if (res.status === 201) {
+          setRegisterInfo({
+            username: '',
+            password: '',
+            password2: '',
+          });
+        }
+      });
     }
   };
 
@@ -109,9 +119,6 @@ const RegisterForm = () => {
               id='username'
               onChange={handleChange}
               value={registerInfo.username}
-              style={{
-                border: error.username ? '1px solid red' : '1px solid #2e2e39',
-              }}
             />
             <div
               style={{
@@ -122,7 +129,7 @@ const RegisterForm = () => {
                 opacity: '0.7',
               }}
             >
-              Reminder: Donot use your real name.
+              Reminder: Don't use your real name.
             </div>
           </InputContainer>
           <InputContainer>
@@ -134,9 +141,6 @@ const RegisterForm = () => {
               id='password'
               onChange={handleChange}
               value={registerInfo.password}
-              style={{
-                border: error.password ? '1px solid red' : '1px solid #2e2e39',
-              }}
             />
           </InputContainer>
           <InputContainer>
@@ -148,9 +152,6 @@ const RegisterForm = () => {
               id='confirm-password'
               onChange={handleChange}
               value={registerInfo.password2}
-              style={{
-                border: error.password2 ? '1px solid red' : '1px solid #2e2e39',
-              }}
             />
           </InputContainer>
           <LoginButton type='submit'>Sign up</LoginButton>
@@ -160,6 +161,7 @@ const RegisterForm = () => {
           <LoginLink to='/login'>Sign in now</LoginLink>
         </LinkContainer>
       </FormBox>
+      <SnackBar showSnackbar={showSnackbar} error={error} isRight={isRight} />
     </FormContainer>
   );
 };

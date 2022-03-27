@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -18,6 +18,8 @@ import {
   SiteLogo,
 } from './LoginFormElements';
 
+import SnackBar from '../SnackBar';
+
 const LoginForm = ({ setIsAuth }) => {
   const navigate = useNavigate();
 
@@ -31,6 +33,12 @@ const LoginForm = ({ setIsAuth }) => {
     username: '',
     password: '',
   });
+  const [showSnackbar, setShowSnackbar] = useState(false);
+  const [isRight, setIsRight] = useState(false);
+
+  useEffect(() => {
+    setIsRight(false);
+  }, [isRight]);
 
   const handleChange = (e) => {
     if (e.target.name === 'username') {
@@ -65,6 +73,13 @@ const LoginForm = ({ setIsAuth }) => {
 
     setError(errors);
 
+    if (Object.entries(errors).length > 0) {
+      setShowSnackbar(true);
+      setTimeout(() => {
+        setShowSnackbar(false);
+      }, 2500);
+    }
+
     if (Object.entries(errors).length === 0) {
       axios
         .post(`${BASE_URL}/api/auth/login`, loginInfo)
@@ -96,9 +111,6 @@ const LoginForm = ({ setIsAuth }) => {
               id='username'
               onChange={handleChange}
               value={loginInfo.username}
-              style={{
-                border: error.username ? '1px solid red' : '1px solid #2e2e39',
-              }}
             />
           </InputContainer>
           <InputContainer>
@@ -110,9 +122,6 @@ const LoginForm = ({ setIsAuth }) => {
               id='password'
               onChange={handleChange}
               value={loginInfo.password}
-              style={{
-                border: error.password ? '1px solid red' : '1px solid #2e2e39',
-              }}
             />
           </InputContainer>
           <LoginButton type='submit'>Sign in</LoginButton>
@@ -122,6 +131,7 @@ const LoginForm = ({ setIsAuth }) => {
           <RegisterLink to='/register'>Register now</RegisterLink>
         </LinkContainer>
       </FormBox>
+      <SnackBar showSnackbar={showSnackbar} error={error} isRight={isRight} />
     </FormContainer>
   );
 };
