@@ -26,11 +26,11 @@ export const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
-      res.status(404).json('User not found');
+      res.status(401).json('User not found');
     } else {
       const match = await bcrypt.compare(req.body.password, user.password);
       !match
-        ? res.status(400).json('Invalid Password')
+        ? res.status(403).json('Invalid Password')
         : res.status(200).json(user._id);
     }
   } catch (error) {
