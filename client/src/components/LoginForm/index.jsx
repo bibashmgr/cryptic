@@ -71,9 +71,8 @@ const LoginForm = ({ setIsAuth }) => {
       errors.password = 'Invalid Password';
     }
 
-    setError(errors);
-
     if (Object.entries(errors).length > 0) {
+      setError(errors);
       setShowSnackbar(true);
       setTimeout(() => {
         setShowSnackbar(false);
@@ -81,18 +80,22 @@ const LoginForm = ({ setIsAuth }) => {
     }
 
     if (Object.entries(errors).length === 0) {
-      axios
-        .post(`${BASE_URL}/api/auth/login`, loginInfo)
-        .then((res) => {
-          if (res.status === 200) {
-            localStorage.setItem('loginUser', res.data);
-            setIsAuth(true);
-            navigate('/');
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      axios.post(`${BASE_URL}/api/auth/login`, loginInfo).then((res) => {
+        if (res.status === 200) {
+          localStorage.setItem('loginUser', res.data);
+          setIsAuth(true);
+          navigate('/');
+        }
+        if (res.status === 401) {
+          console.log('User not found');
+        }
+        if (res.status === 403) {
+          console.log('Password not match');
+        }
+      });
+      // .catch((err) => {
+      //   console.log(err);
+      // });
     }
   };
 
