@@ -31,9 +31,11 @@ const RegisterForm = () => {
     username: '',
     password: '',
     password2: '',
+    others: '',
   });
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [isRight, setIsRight] = useState(true);
+  const [isError, setIsError] = useState(true);
 
   useEffect(() => {
     setIsRight(true);
@@ -85,6 +87,7 @@ const RegisterForm = () => {
     setError(errors);
 
     if (Object.entries(errors).length > 0) {
+      setIsError(true);
       setShowSnackbar(true);
       setTimeout(() => {
         setShowSnackbar(false);
@@ -92,15 +95,40 @@ const RegisterForm = () => {
     }
 
     if (Object.entries(errors).length === 0) {
-      axios.post(`${BASE_URL}/api/auth/register`, registerInfo).then((res) => {
-        if (res.status === 201) {
-          setRegisterInfo({
-            username: '',
-            password: '',
-            password2: '',
-          });
-        }
-      });
+      axios
+        .post(`${BASE_URL}/api/auth/register`, registerInfo)
+        .then((res) => {
+          if (res.status === 201) {
+            setError({ others: 'Registration successful' });
+            setIsError(false);
+            setShowSnackbar(true);
+            setTimeout(() => {
+              setShowSnackbar(false);
+            }, 2500);
+            setRegisterInfo({
+              username: '',
+              password: '',
+              password2: '',
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 409) {
+            setError({ username: err.response.data });
+            setIsError(true);
+            setShowSnackbar(true);
+            setTimeout(() => {
+              setShowSnackbar(false);
+            }, 2500);
+          } else {
+            setError({ others: 'Internal Error' });
+            setIsError(true);
+            setShowSnackbar(true);
+            setTimeout(() => {
+              setShowSnackbar(false);
+            }, 2500);
+          }
+        });
     }
   };
 
@@ -161,7 +189,12 @@ const RegisterForm = () => {
           <LoginLink to='/login'>Sign in now</LoginLink>
         </LinkContainer>
       </FormBox>
-      <SnackBar showSnackbar={showSnackbar} error={error} isRight={isRight} />
+      <SnackBar
+        showSnackbar={showSnackbar}
+        error={error}
+        isRight={isRight}
+        isError={isError}
+      />
     </FormContainer>
   );
 };

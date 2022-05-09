@@ -32,9 +32,11 @@ const LoginForm = ({ setIsAuth }) => {
   const [error, setError] = useState({
     username: '',
     password: '',
+    others: '',
   });
   const [showSnackbar, setShowSnackbar] = useState(false);
   const [isRight, setIsRight] = useState(false);
+  const [isError, setIsError] = useState(true);
 
   useEffect(() => {
     setIsRight(false);
@@ -52,6 +54,7 @@ const LoginForm = ({ setIsAuth }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let errors = {};
+    let pattern = /^[a-z0-9_.]+$/;
 
     if (loginInfo.username === '') {
       errors.username = 'Username is required';
@@ -60,6 +63,8 @@ const LoginForm = ({ setIsAuth }) => {
       loginInfo.username.length > 20
     ) {
       errors.username = 'Invalid Username';
+    } else if (!pattern.test(loginInfo.username)) {
+      errors.username = 'Invalid username!';
     }
 
     if (loginInfo.password === '') {
@@ -73,6 +78,7 @@ const LoginForm = ({ setIsAuth }) => {
 
     if (Object.entries(errors).length > 0) {
       setError(errors);
+      setIsError(true);
       setShowSnackbar(true);
       setTimeout(() => {
         setShowSnackbar(false);
@@ -80,22 +86,37 @@ const LoginForm = ({ setIsAuth }) => {
     }
 
     if (Object.entries(errors).length === 0) {
-      axios.post(`${BASE_URL}/api/auth/login`, loginInfo).then((res) => {
-        if (res.status === 200) {
-          localStorage.setItem('loginUser', res.data);
+      axios
+        .post(`${BASE_URL}/api/auth/login`, loginInfo)
+        .then((res) => {
+          localStorage.setItem('accessToken', res.data.accessToken);
           setIsAuth(true);
           navigate('/');
-        }
-        if (res.status === 401) {
-          console.log('User not found');
-        }
-        if (res.status === 403) {
-          console.log('Password not match');
-        }
-      });
-      // .catch((err) => {
-      //   console.log(err);
-      // });
+        })
+        .catch((err) => {
+          if (err.response.status === 401) {
+            setError({ username: err.response.data });
+            setIsError(true);
+            setShowSnackbar(true);
+            setTimeout(() => {
+              setShowSnackbar(false);
+            }, 2500);
+          } else if (err.response.status === 403) {
+            setError({ password: err.response.data });
+            setIsError(true);
+            setShowSnackbar(true);
+            setTimeout(() => {
+              setShowSnackbar(false);
+            }, 2500);
+          } else {
+            setError({ others: 'Internal Error' });
+            setIsError(true);
+            setShowSnackbar(true);
+            setTimeout(() => {
+              setShowSnackbar(false);
+            }, 2500);
+          }
+        });
     }
   };
 
@@ -134,7 +155,12 @@ const LoginForm = ({ setIsAuth }) => {
           <RegisterLink to='/register'>Register now</RegisterLink>
         </LinkContainer>
       </FormBox>
-      <SnackBar showSnackbar={showSnackbar} error={error} isRight={isRight} />
+      <SnackBar
+        showSnackbar={showSnackbar}
+        error={error}
+        isRight={isRight}
+        isError={isError}
+      />
     </FormContainer>
   );
 };
