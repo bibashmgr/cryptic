@@ -12,7 +12,7 @@ import {
 const TopBar = ({ setIsAuth }) => {
   const navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.removeItem('loginUser');
+    localStorage.removeItem('accessToken');
     setIsAuth(false);
     navigate('/login');
   };
