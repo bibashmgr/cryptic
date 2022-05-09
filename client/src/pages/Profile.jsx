@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import '../styles/Main.scss';
 import '../styles/Profile.scss';
@@ -14,33 +15,72 @@ import Posts from '../components/Posts';
 const Profile = ({ setIsAuth }) => {
   const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
-  const loginUser = localStorage.getItem('loginUser');
+  const navigate = useNavigate();
 
   const [user, setUser] = useState('');
+  const [loginUser, setLoginUser] = useState('');
   const [isOpen, setIsOpen] = useState(true);
   const [myPosts, setMyPosts] = useState([]);
   const [savedPosts, setSavedPosts] = useState({});
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/posts/myposts/${loginUser}`)
+      .get(`${BASE_URL}/api/users/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
       .then((res) => res.data)
-      .then((data) => setMyPosts(data));
-  }, [loginUser, BASE_URL]);
+      .then((data) => setUser(data.username))
+      .catch((err) => {
+        if (err.response.data === 'ACCESS DENIED' || 'TOKEN NOT FOUND') {
+          setIsAuth(false);
+          localStorage.removeItem('accessToken');
+          navigate('/login');
+        }
+      });
+  }, [BASE_URL, setIsAuth, navigate]);
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/posts/savedposts/${loginUser}`)
+      .get(`${BASE_URL}/api/posts/myposts`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
       .then((res) => res.data)
-      .then((data) => setSavedPosts(data));
-  }, [loginUser, BASE_URL]);
+      .then((data) => {
+        setMyPosts(data.posts);
+        setLoginUser(data.userId);
+      })
+      .catch((err) => {
+        if (err.response.data === 'ACCESS DENIED' || 'TOKEN NOT FOUND') {
+          setIsAuth(false);
+          localStorage.removeItem('accessToken');
+          navigate('/login');
+        }
+      });
+  }, [BASE_URL, setIsAuth, navigate]);
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/users/${loginUser}`)
+      .get(`${BASE_URL}/api/posts/savedposts`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
       .then((res) => res.data)
-      .then((data) => setUser(data.username));
-  }, [loginUser, BASE_URL]);
+      .then((data) => {
+        setSavedPosts(data.filterPosts);
+      })
+      .catch((err) => {
+        if (err.response.data === 'ACCESS DENIED' || 'TOKEN NOT FOUND') {
+          setIsAuth(false);
+          localStorage.removeItem('accessToken');
+          navigate('/login');
+        }
+      });
+  }, [BASE_URL, setIsAuth, navigate]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -49,7 +89,10 @@ const Profile = ({ setIsAuth }) => {
           <div className='profile-container'>
             <ProfileCard user={user} />
             <MiddleBar setIsOpen={setIsOpen} />
-            <Posts posts={isOpen ? myPosts : savedPosts} />
+            <Posts
+              posts={isOpen ? myPosts : savedPosts}
+              loginUser={loginUser}
+            />
           </div>
         </div>
       </div>

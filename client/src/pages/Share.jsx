@@ -11,7 +11,7 @@ const Share = ({ setIsAuth }) => {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <div className='main-container'>
         <div className='sub-container'>
-          <PostField />
+          <PostField setIsAuth={setIsAuth} />
         </div>
       </div>
       <TopBar setIsAuth={setIsAuth} />
