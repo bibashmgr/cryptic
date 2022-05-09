@@ -1,8 +1,9 @@
 import express from 'express';
 
+import { getVerify } from '../middlewares/verify.js';
+
 const router = express.Router();
 
-// controllers
 import { loginUser, registerUser } from '../controllers/auth.js';
 
 router.post('/login', loginUser);

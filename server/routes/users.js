@@ -2,10 +2,11 @@ import express from 'express';
 
 const router = express.Router();
 
-// controllers
-import { getUser, getUsers } from '../controllers/users.js';
+import { getProfile, getUser, getUsers } from '../controllers/users.js';
+import { getVerify } from '../middlewares/verify.js';
 
-router.get('/:id', getUser);
-router.get('/', getUsers);
+router.get('/profile', getVerify, getProfile);
+router.get('/:id', getVerify, getUser);
+router.get('/', getVerify, getUsers);
 
 export default router;
