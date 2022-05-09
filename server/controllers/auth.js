@@ -1,6 +1,11 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 import User from '../models/User.js';
+
+const ACCESS_TOKEN = process.env.SECRET_ACCESS_TOKEN;
 
 export const registerUser = async (req, res) => {
   try {
@@ -15,7 +20,7 @@ export const registerUser = async (req, res) => {
       const savedUser = await newUser.save();
       res.status(201).json(savedUser);
     } else {
-      res.status(401).json('User already registered');
+      res.status(409).json('User already registered');
     }
   } catch (error) {
     res.status(400).json(error.message);
@@ -29,11 +34,16 @@ export const loginUser = async (req, res) => {
       res.status(401).json('User not found');
     } else {
       const match = await bcrypt.compare(req.body.password, user.password);
-      !match
-        ? res.status(403).json('Invalid Password')
-        : res.status(200).json(user._id);
+      if (!match) {
+        res.status(403).json('Password is incorrect');
+      } else {
+        const accessToken = jwt.sign({ id: user._id }, ACCESS_TOKEN, {
+          expiresIn: 15 * 60,
+        });
+        res.status(200).json({ accessToken });
+      }
     }
   } catch (error) {
-    res.status(400).json(error);
+    console.log(error);
   }
 };
