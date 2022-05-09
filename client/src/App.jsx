@@ -19,8 +19,8 @@ const App = () => {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    const loginUser = localStorage.getItem('loginUser');
-    loginUser ? setIsAuth(true) : setIsAuth(false);
+    const accessToken = localStorage.getItem('accessToken');
+    accessToken ? setIsAuth(true) : setIsAuth(false);
   }, []);
 
   return (
