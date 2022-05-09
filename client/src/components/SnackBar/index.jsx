@@ -10,7 +10,7 @@ import {
   SnackBarContent,
 } from './SnackBarElements';
 
-const SnackBar = ({ showSnackbar, error, isRight }) => {
+const SnackBar = ({ showSnackbar, error, isRight, isError }) => {
   const rightStyle = {
     right: '-200px',
   };
@@ -32,18 +32,31 @@ const SnackBar = ({ showSnackbar, error, isRight }) => {
       style={isRight ? rightStyle : leftStyle}
     >
       {error.username && (
-        <SnackBarContainer>
+        <SnackBarContainer
+          style={{ backgroundColor: isError ? '#ff7878' : '#7bed9f' }}
+        >
           <SnackBarContent>{error.username}</SnackBarContent>
         </SnackBarContainer>
       )}
       {error.password && (
-        <SnackBarContainer>
+        <SnackBarContainer
+          style={{ backgroundColor: isError ? '#ff7878' : '#7bed9f' }}
+        >
           <SnackBarContent>{error.password}</SnackBarContent>
         </SnackBarContainer>
       )}
       {error.password2 && (
-        <SnackBarContainer>
+        <SnackBarContainer
+          style={{ backgroundColor: isError ? '#ff7878' : '#7bed9f' }}
+        >
           <SnackBarContent>{error.password2}</SnackBarContent>
+        </SnackBarContainer>
+      )}
+      {error.others && (
+        <SnackBarContainer
+          style={{ backgroundColor: isError ? '#ff7878' : '#7bed9f' }}
+        >
+          <SnackBarContent>{error.others}</SnackBarContent>
         </SnackBarContainer>
       )}
     </SnackBarContainers>
