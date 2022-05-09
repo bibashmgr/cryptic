@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Card,
@@ -21,8 +22,10 @@ import {
 import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
-const Post = ({ post }) => {
+const Post = ({ post, loginUser, setIsAuth }) => {
   const BASE_URL = process.env.REACT_APP_SERVER_URL;
+
+  const navigate = useNavigate();
 
   const logoStyle = {
     fontSize: '1.5rem',
@@ -30,9 +33,6 @@ const Post = ({ post }) => {
     color: '#78bcff',
   };
 
-  const loginUser = localStorage.getItem('loginUser');
-
-  // const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
   const [username, setUsername] = useState('');
   const [likeCount, setLikeCount] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
@@ -45,22 +45,59 @@ const Post = ({ post }) => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/users/${post.userId}`)
+      .get(`${BASE_URL}/api/users/${post.userId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
       .then((res) => res.data)
-      .then((data) => setUsername(data.username));
-  }, [post.userId, BASE_URL]);
+      .then((data) => setUsername(data.username))
+      .catch((err) => {
+        if (err.response.data === 'ACCESS DENIED' || 'TOKEN NOT FOUND') {
+          setIsAuth(false);
+          localStorage.removeItem('accessToken');
+          navigate('/login');
+        }
+      });
+  }, [post.userId, BASE_URL, setIsAuth, navigate]);
 
   const handleLike = () => {
-    axios.put(`${BASE_URL}/api/posts/${post._id}/like`, {
-      userId: loginUser,
+    axios({
+      method: 'put',
+      url: `${BASE_URL}/api/posts/like`,
+      data: {
+        postId: post._id,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    }).catch((err) => {
+      if (err.response.data === 'ACCESS DENIED' || 'TOKEN NOT FOUND') {
+        setIsAuth(false);
+        localStorage.removeItem('accessToken');
+        navigate('/login');
+      }
     });
     setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
     setIsLiked(!isLiked);
   };
 
-  const handleSave = (e) => {
-    axios.put(`${BASE_URL}/api/posts/${post._id}/save`, {
-      userId: loginUser,
+  const handleSave = () => {
+    axios({
+      method: 'put',
+      url: `${BASE_URL}/api/posts/save`,
+      data: {
+        postId: post._id,
+      },
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+      },
+    }).catch((err) => {
+      if (err.response.data === 'ACCESS DENIED' || 'TOKEN NOT FOUND') {
+        setIsAuth(false);
+        localStorage.removeItem('accessToken');
+        navigate('/login');
+      }
     });
     setIsSaved(!isSaved);
   };

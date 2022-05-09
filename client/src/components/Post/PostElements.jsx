@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const Card = styled.div``;
+export const Card = styled.div`
+  min-width: 300px;
+`;
 
 export const CardHeader = styled.div`
   display: flex;
@@ -64,8 +66,6 @@ export const CardButtons = styled.div`
   grid-gap: 2.5px;
 `;
 
-// like-button
-
 export const LikeButton = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   height: 100%;
@@ -83,8 +83,6 @@ export const LikeCounter = styled.div`
   font-weight: 500;
   color: #78bcff;
 `;
-
-// share-button
 
 export const SaveButton = styled.div`
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
 
@@ -14,28 +15,38 @@ import {
   ShareButton,
 } from './PostFieldElements';
 
-const PostField = () => {
+const PostField = ({ setIsAuth }) => {
   const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
+  const navigate = useNavigate();
+
   const loginUser = localStorage.getItem('loginUser');
-  // const [loginUser, setLoginUser] = useState(localStorage.getItem('loginUser'));
 
   const [post, setPost] = useState({
-    userId: loginUser,
     desc: '',
   });
   const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/users/${loginUser}`)
+      .get(`${BASE_URL}/api/users/profile`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
       .then((res) => res.data)
-      .then((data) => setCurrentUser(data));
-  }, [loginUser, BASE_URL]);
+      .then((data) => setCurrentUser(data))
+      .catch((err) => {
+        if (err.response.data === 'ACCESS DENIED' || 'TOKEN NOT FOUND') {
+          setIsAuth(false);
+          localStorage.removeItem('accessToken');
+          navigate('/login');
+        }
+      });
+  }, [loginUser, BASE_URL, navigate, setIsAuth]);
 
   const handleChange = (e) => {
     setPost({
-      ...post,
       desc: e.target.value,
     });
   };
@@ -43,18 +54,35 @@ const PostField = () => {
   const handleShare = (e) => {
     let errors = {};
     if (post.desc === '') {
-      errors.desc = 'Text is empty';
+      errors.others = 'Text is empty';
     }
 
     if (Object.entries(errors).length === 0) {
-      axios.post(`${BASE_URL}/api/posts`, post).then((res) => {
-        if (res.status === 201) {
-          setPost({
-            userId: '',
-            desc: '',
-          });
-        }
-      });
+      post.desc = post.desc.replace(/</g, ' &lt; ').replace(/>/g, ' &gt; ');
+      axios({
+        method: 'post',
+        url: `${BASE_URL}/api/posts`,
+        data: {
+          desc: post.desc,
+        },
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      })
+        .then((res) => {
+          if (res.status === 201) {
+            setPost({
+              desc: '',
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.response.data === 'ACCESS DENIED' || 'TOKEN NOT FOUND') {
+            setIsAuth(false);
+            localStorage.removeItem('accessToken');
+            navigate('/login');
+          }
+        });
     }
   };
 
