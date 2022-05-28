@@ -20,8 +20,6 @@ import {
 import SnackBar from '../SnackBar';
 
 const RegisterForm = () => {
-  const BASE_URL = process.env.REACT_APP_SERVER_URL;
-
   const [registerInfo, setRegisterInfo] = useState({
     username: '',
     password: '',
@@ -96,7 +94,7 @@ const RegisterForm = () => {
 
     if (Object.entries(errors).length === 0) {
       axios
-        .post(`${BASE_URL}/api/auth/register`, registerInfo)
+        .post('/api/auth/register', registerInfo)
         .then((res) => {
           if (res.status === 201) {
             setError({ others: 'Registration successful' });

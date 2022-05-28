@@ -13,8 +13,6 @@ import MiddleBar from '../components/MiddleBar';
 import Posts from '../components/Posts';
 
 const Profile = ({ setIsAuth }) => {
-  const BASE_URL = process.env.REACT_APP_SERVER_URL;
-
   const navigate = useNavigate();
 
   const [user, setUser] = useState('');
@@ -25,7 +23,7 @@ const Profile = ({ setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/users/profile`, {
+      .get('/api/users/profile', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -39,11 +37,11 @@ const Profile = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [BASE_URL, setIsAuth, navigate]);
+  }, [setIsAuth, navigate]);
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/posts/myposts`, {
+      .get('/api/posts/myposts', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -60,11 +58,11 @@ const Profile = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [BASE_URL, setIsAuth, navigate]);
+  }, [setIsAuth, navigate]);
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/posts/savedposts`, {
+      .get('/api/posts/savedposts', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -80,7 +78,7 @@ const Profile = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [BASE_URL, setIsAuth, navigate]);
+  }, [setIsAuth, navigate]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

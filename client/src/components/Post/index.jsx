@@ -23,8 +23,6 @@ import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
 const Post = ({ post, loginUser, setIsAuth }) => {
-  const BASE_URL = process.env.REACT_APP_SERVER_URL;
-
   const navigate = useNavigate();
 
   const logoStyle = {
@@ -45,7 +43,7 @@ const Post = ({ post, loginUser, setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/users/${post.userId}`, {
+      .get(`/api/users/${post.userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -59,12 +57,12 @@ const Post = ({ post, loginUser, setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [post.userId, BASE_URL, setIsAuth, navigate]);
+  }, [post.userId, setIsAuth, navigate]);
 
   const handleLike = () => {
     axios({
       method: 'put',
-      url: `${BASE_URL}/api/posts/like`,
+      url: '/api/posts/like',
       data: {
         postId: post._id,
       },
@@ -85,7 +83,7 @@ const Post = ({ post, loginUser, setIsAuth }) => {
   const handleSave = () => {
     axios({
       method: 'put',
-      url: `${BASE_URL}/api/posts/save`,
+      url: '/api/posts/save',
       data: {
         postId: post._id,
       },

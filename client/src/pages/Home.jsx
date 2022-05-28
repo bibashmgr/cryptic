@@ -11,8 +11,6 @@ import NavBar from '../components/NavBar';
 import Post from '../components/Post';
 
 const Home = ({ setIsAuth }) => {
-  const BASE_URL = process.env.REACT_APP_SERVER_URL;
-
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
@@ -20,7 +18,7 @@ const Home = ({ setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/posts`, {
+      .get('/api/posts', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -37,7 +35,7 @@ const Home = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [BASE_URL, navigate, setIsAuth]);
+  }, [navigate, setIsAuth]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

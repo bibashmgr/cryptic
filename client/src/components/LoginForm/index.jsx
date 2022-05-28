@@ -23,8 +23,6 @@ import SnackBar from '../SnackBar';
 const LoginForm = ({ setIsAuth }) => {
   const navigate = useNavigate();
 
-  const BASE_URL = process.env.REACT_APP_SERVER_URL;
-
   const [loginInfo, setLoginInfo] = useState({
     username: '',
     password: '',
@@ -87,7 +85,7 @@ const LoginForm = ({ setIsAuth }) => {
 
     if (Object.entries(errors).length === 0) {
       axios
-        .post(`${BASE_URL}/api/auth/login`, loginInfo)
+        .post('/api/auth/login', loginInfo)
         .then((res) => {
           localStorage.setItem('accessToken', res.data.accessToken);
           setIsAuth(true);

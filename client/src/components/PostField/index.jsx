@@ -16,8 +16,6 @@ import {
 } from './PostFieldElements';
 
 const PostField = ({ setIsAuth }) => {
-  const BASE_URL = process.env.REACT_APP_SERVER_URL;
-
   const navigate = useNavigate();
 
   const loginUser = localStorage.getItem('loginUser');
@@ -29,7 +27,7 @@ const PostField = ({ setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/users/profile`, {
+      .get('/api/users/profile', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -43,7 +41,7 @@ const PostField = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [loginUser, BASE_URL, navigate, setIsAuth]);
+  }, [loginUser, navigate, setIsAuth]);
 
   const handleChange = (e) => {
     setPost({
@@ -61,7 +59,7 @@ const PostField = ({ setIsAuth }) => {
       post.desc = post.desc.replace(/</g, ' &lt; ').replace(/>/g, ' &gt; ');
       axios({
         method: 'post',
-        url: `${BASE_URL}/api/posts`,
+        url: '/api/posts',
         data: {
           desc: post.desc,
         },
