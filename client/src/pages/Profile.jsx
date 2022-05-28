@@ -13,6 +13,8 @@ import MiddleBar from '../components/MiddleBar';
 import Posts from '../components/Posts';
 
 const Profile = ({ setIsAuth }) => {
+  const BASE_URL = 'https://cryptix-backend.herokuapp.com';
+
   const navigate = useNavigate();
 
   const [user, setUser] = useState('');
@@ -23,7 +25,7 @@ const Profile = ({ setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get('/api/users/profile', {
+      .get(`${BASE_URL}/api/users/profile`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -37,11 +39,11 @@ const Profile = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [setIsAuth, navigate]);
+  }, [setIsAuth, navigate, BASE_URL]);
 
   useEffect(() => {
     axios
-      .get('/api/posts/myposts', {
+      .get(`${BASE_URL}/api/posts/myposts`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -58,11 +60,11 @@ const Profile = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [setIsAuth, navigate]);
+  }, [setIsAuth, navigate, BASE_URL]);
 
   useEffect(() => {
     axios
-      .get('/api/posts/savedposts', {
+      .get(`${BASE_URL}/api/posts/savedposts`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -78,7 +80,7 @@ const Profile = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [setIsAuth, navigate]);
+  }, [setIsAuth, navigate, BASE_URL]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

@@ -20,6 +20,8 @@ import {
 import SnackBar from '../SnackBar';
 
 const RegisterForm = () => {
+  const BASE_URL = 'https://cryptix-backend.herokuapp.com';
+
   const [registerInfo, setRegisterInfo] = useState({
     username: '',
     password: '',
@@ -94,7 +96,7 @@ const RegisterForm = () => {
 
     if (Object.entries(errors).length === 0) {
       axios
-        .post('/api/auth/register', registerInfo)
+        .post(`${BASE_URL}/api/auth/register`, registerInfo)
         .then((res) => {
           if (res.status === 201) {
             setError({ others: 'Registration successful' });
@@ -143,6 +145,9 @@ const RegisterForm = () => {
               name='username'
               placeholder='Enter your username'
               id='username'
+              autoCapitalize={false}
+              autoComplete={false}
+              autoCorrect={false}
               onChange={handleChange}
               value={registerInfo.username}
             />

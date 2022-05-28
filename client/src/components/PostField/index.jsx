@@ -16,6 +16,8 @@ import {
 } from './PostFieldElements';
 
 const PostField = ({ setIsAuth }) => {
+  const BASE_URL = 'https://cryptix-backend.herokuapp.com';
+
   const navigate = useNavigate();
 
   const loginUser = localStorage.getItem('loginUser');
@@ -27,7 +29,7 @@ const PostField = ({ setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get('/api/users/profile', {
+      .get(`${BASE_URL}/api/users/profile`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -41,7 +43,7 @@ const PostField = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [loginUser, navigate, setIsAuth]);
+  }, [loginUser, navigate, setIsAuth, BASE_URL]);
 
   const handleChange = (e) => {
     setPost({
@@ -59,7 +61,7 @@ const PostField = ({ setIsAuth }) => {
       post.desc = post.desc.replace(/</g, ' &lt; ').replace(/>/g, ' &gt; ');
       axios({
         method: 'post',
-        url: '/api/posts',
+        url: `${BASE_URL}/api/posts`,
         data: {
           desc: post.desc,
         },
@@ -96,6 +98,9 @@ const PostField = ({ setIsAuth }) => {
           name='confession'
           placeholder='Type your confession'
           rows='10'
+          autoCapitalize={false}
+          autoComplete={false}
+          autoCorrect={false}
           value={post.desc}
           onChange={handleChange}
         ></CardTextField>

@@ -23,6 +23,8 @@ import { AiOutlineLike, AiFillLike } from 'react-icons/ai';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
 const Post = ({ post, loginUser, setIsAuth }) => {
+  const BASE_URL = 'https://cryptix-backend.herokuapp.com';
+
   const navigate = useNavigate();
 
   const logoStyle = {
@@ -43,7 +45,7 @@ const Post = ({ post, loginUser, setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get(`/api/users/${post.userId}`, {
+      .get(`${BASE_URL}/api/users/${post.userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -57,12 +59,12 @@ const Post = ({ post, loginUser, setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [post.userId, setIsAuth, navigate]);
+  }, [post.userId, setIsAuth, navigate, BASE_URL]);
 
   const handleLike = () => {
     axios({
       method: 'put',
-      url: '/api/posts/like',
+      url: `${BASE_URL}/api/posts/like`,
       data: {
         postId: post._id,
       },
@@ -83,7 +85,7 @@ const Post = ({ post, loginUser, setIsAuth }) => {
   const handleSave = () => {
     axios({
       method: 'put',
-      url: '/api/posts/save',
+      url: `${BASE_URL}/api/posts/save`,
       data: {
         postId: post._id,
       },

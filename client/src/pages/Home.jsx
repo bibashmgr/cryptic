@@ -11,6 +11,8 @@ import NavBar from '../components/NavBar';
 import Post from '../components/Post';
 
 const Home = ({ setIsAuth }) => {
+  const BASE_URL = 'https://cryptix-backend.herokuapp.com';
+
   const navigate = useNavigate();
 
   const [posts, setPosts] = useState([]);
@@ -18,7 +20,7 @@ const Home = ({ setIsAuth }) => {
 
   useEffect(() => {
     axios
-      .get('/api/posts', {
+      .get(`${BASE_URL}/api/posts`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
@@ -35,7 +37,7 @@ const Home = ({ setIsAuth }) => {
           navigate('/login');
         }
       });
-  }, [navigate, setIsAuth]);
+  }, [BASE_URL, navigate, setIsAuth]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>

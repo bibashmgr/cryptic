@@ -9,7 +9,6 @@ import authRoutes from './routes/auth.js';
 import usersRoutes from './routes/users.js';
 import postsRoutes from './routes/posts.js';
 
-const CLIENT_URL = process.env.CLIENT_URL;
 const CONNECTION_URL = process.env.MONGODB_URL;
 const PORT = process.env.PORT || 8080;
 
@@ -20,8 +19,8 @@ app.use(bodyParser.json({ limit: '1mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '1mb', extended: true }));
 app.use(
   cors({
-    origin: CLIENT_URL,
-    credentials: true,
+    origin: '*',
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
   })
 );
 

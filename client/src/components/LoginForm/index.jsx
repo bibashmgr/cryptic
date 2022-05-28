@@ -21,6 +21,8 @@ import {
 import SnackBar from '../SnackBar';
 
 const LoginForm = ({ setIsAuth }) => {
+  const BASE_URL = 'https://cryptix-backend.herokuapp.com';
+
   const navigate = useNavigate();
 
   const [loginInfo, setLoginInfo] = useState({
@@ -85,7 +87,7 @@ const LoginForm = ({ setIsAuth }) => {
 
     if (Object.entries(errors).length === 0) {
       axios
-        .post('/api/auth/login', loginInfo)
+        .post(`${BASE_URL}/api/auth/login`, loginInfo)
         .then((res) => {
           localStorage.setItem('accessToken', res.data.accessToken);
           setIsAuth(true);
@@ -131,6 +133,9 @@ const LoginForm = ({ setIsAuth }) => {
               name='username'
               placeholder='Enter your username'
               id='username'
+              autoCapitalize={false}
+              autoComplete={false}
+              autoCorrect={false}
               onChange={handleChange}
               value={loginInfo.username}
             />
